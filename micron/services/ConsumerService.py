@@ -23,6 +23,19 @@ class ConsumerService:
         selected_fields: List[str] = [],
         row_restriction: str = "",
     ) -> ReadSession:
+        """Get storage read session from BQ
+
+        Args:
+            dataset (str): the source dataset name
+            table (str): the source table name
+            project (str, optional): the source GCP project name. Defaults to "bigquery-public-data".
+            max_stream_count (int, optional): the number of reading streams. Defaults to 1.
+            selected_fields (List[str], optional): the list of column names. Defaults to [].
+            row_restriction (str, optional): the WHERE condition when filtering rows. Defaults to "".
+
+        Returns:
+            ReadSession: a storage read session
+        """
         requested_session = types.ReadSession(  # type: ignore
             table=f"projects/{project}/datasets/{dataset}/tables/{table}",
             data_format=types.DataFormat.AVRO,  # type: ignore
@@ -40,6 +53,15 @@ class ConsumerService:
     def download(
         self, dir_path: str, stream_name: str
     ) -> Tuple[str, Optional[Dict[str, Any]]]:
+        """Iter through the given read stream
+
+        Args:
+            dir_path (str): the data destination directory
+            stream_name (str): the name of a read stream
+
+        Returns:
+            Tuple[str, Optional[Dict[str, Any]]]: (file name, json schema)
+        """
         reader: ReadRowsStream = self.client.read_rows(stream_name)
         _dir = Path(dir_path)
         _dir.mkdir(exist_ok=True, parents=True)

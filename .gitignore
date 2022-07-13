@@ -12,5 +12,5 @@ __pycache__/
 dmypy.json
 
 # download
-.avro
-.json
+*.avro
+*.json

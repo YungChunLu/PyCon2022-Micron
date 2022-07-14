@@ -25,3 +25,51 @@ conda activate pycon
 ```bash
 poetry install
 ```
+6. Install Pub/Sub emulator
+```
+sudo apt-get update
+sudo apt install default-jdk
+
+gcloud components install beta
+gcloud components install pubsub-emulator
+gcloud components update
+```
+7. Start the Pub/Sub emulator
+```
+export PUBSUB_PROJECT_ID=local-dev
+gcloud beta emulators pubsub start \
+    --project=$PUBSUB_PROJECT_ID \
+    --host-port=localhost:8085
+```
+8. Init the submodule if you have not done before
+```
+git submodule init
+git submodule update
+```
+9. Local Topic/Subscription setup
+```
+export PUBSUB_PROJECT_ID=local-dev
+export TOPIC_ID=pycon
+export SUBSCRIPTION_ID=$TOPIC_ID-consumer
+$(gcloud beta emulators pubsub env-init)
+
+python python-pubsub/samples/snippets/publisher.py $PUBSUB_PROJECT_ID create $TOPIC_ID
+python python-pubsub/samples/snippets/subscriber.py $PUBSUB_PROJECT_ID create $TOPIC_ID $SUBSCRIPTION_ID
+```
+10. Consumer init
+```
+export PUBSUB_PROJECT_ID=local-dev
+export TOPIC_ID=pycon
+export SUBSCRIPTION_ID=$TOPIC_ID-consumer
+$(gcloud beta emulators pubsub env-init)
+
+python download_pubsub.py
+```
+11. Producer init
+```
+export PUBSUB_PROJECT_ID=local-dev
+export TOPIC_ID=pycon
+$(gcloud beta emulators pubsub env-init)
+
+python micron/utils/publish_msg.py
+```

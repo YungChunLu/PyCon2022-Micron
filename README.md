@@ -6,8 +6,10 @@ Continuous High Volume of Data Exporting From BigQuery
 .
 |-- micron                 
     |-- services                  # service class to simplify the GCP service api
+    |-- utils                     # util tools
 |-- download_single_session.py    # demo: download data with single session
 |-- download_multiple_sessions.py # demo: download data with multiple sessions
+|-- download_pubsub.py            # demo: download data with pubsub pull client
 ```
 
 ## Development Environment In Linux Setup

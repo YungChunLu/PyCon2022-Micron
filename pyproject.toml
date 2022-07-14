@@ -8,6 +8,7 @@ authors = ["YUNG-CHUN LU <yungchunlu@micron.com>"]
 python = "^3.7"
 google-cloud-bigquery-storage = "^2.14.0"
 google-cloud-pubsub = "^2.13.1"
+fastavro = "^1.5.2"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.961"

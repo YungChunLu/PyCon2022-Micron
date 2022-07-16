@@ -34,6 +34,6 @@ class PubSubService:
         with self.subscriber:
             try:
                 streaming_pull_future.result()
-            except TimeoutError:
+            except Exception:
                 streaming_pull_future.cancel()  # Trigger the shutdown.
                 streaming_pull_future.result()  # Block until the shutdown is complete.

@@ -73,5 +73,5 @@ export PUBSUB_PROJECT_ID=local-dev
 export TOPIC_ID=pycon
 $(gcloud beta emulators pubsub env-init)
 
-python micron/utils/publish_msg.py
+python micron/utils/publish_msg.py --dataset crypto_bitcoin --table blocks
 ```
